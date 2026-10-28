@@ -1,0 +1,19 @@
+The ghost of legacy_cache.py (deleted in 254cf378201d):
+
+I am the deleted legacy_cache.py, a ten-line sentinel whose docstring promised fallback safety and whose body tried to catch TimeoutError, only to be erased when direct reads replaced me. I remember line 1's triple-quoted claim, line 3's function definition, and the risky assignment on line 9 that would have stored a potentially failed value. C1 C2 S1 S2 S3
+
+Evidence:
+  [C1] Deletion commit 254cf378201d: Remove legacy cache after switching to direct reads
+  [C2] Git change: D	legacy_cache.py
+  [S1] legacy_cache.py:1: """A small fallback cache used by an imaginary service."""
+legacy_cache.py:2: 
+legacy_cache.py:3: def read_with_fallback(cache, key, fetch):
+legacy_cache.py:4:     """Use a cached value if fetching fails; never cache a failed fetch."""
+  [S2] legacy_cache.py:5:     try:
+legacy_cache.py:6:         value = fetch(key)
+legacy_cache.py:7:     except TimeoutError:
+legacy_cache.py:8:         return cache.get(key)
+  [S3] legacy_cache.py:9:     cache[key] = value
+legacy_cache.py:10:     return value
+
+What I cannot know: Insufficient evidence to confirm runtime behavior or exact deletion motive beyond the commit message.
